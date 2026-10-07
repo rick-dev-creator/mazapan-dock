@@ -64,6 +64,23 @@ function arrange(pinned, windows, seen) {
   return pinnedItems.concat(running)
 }
 
+// Where a minimized window waits: a special workspace of Hyprland's, which
+// isn't shown (it has no minimize of its own). The same one other docks
+// for Hyprland use, so a window minimized by one is found by the other.
+const minimizedWorkspace = "special:minimized"
+
+function isMinimized(workspaceName) {
+  return workspaceName === minimizedWorkspace
+}
+
+// What a click on an app with one window does: brings it back when it's
+// minimized, minimizes it when it has the focus, else goes to it.
+function clickOn(window) {
+  if (window.minimized) return "restore"
+  if (window.focused) return "minimize"
+  return "focus"
+}
+
 // The window after (delta 1) or before (-1) the focused one, going round;
 // the first when none of them has the focus.
 function step(windows, delta) {

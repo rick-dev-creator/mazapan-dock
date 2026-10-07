@@ -9,7 +9,7 @@ import { readFileSync } from "node:fs"
 
 const source = readFileSync(new URL("../Apps.js.tmpl", import.meta.url), "utf8")
   .replace(/^\.pragma library\n/, "")
-const names = ["webAppMark", "webAppOf", "remember", "inOrder", "arrange", "step", "overlaps", "covered", "pin"]
+const names = ["minimizedWorkspace", "isMinimized", "clickOn", "webAppMark", "webAppOf", "remember", "inOrder", "arrange", "step", "overlaps", "covered", "pin"]
 const Apps = new Function(source + `\nreturn { ${names.join(", ")} }`)()
 
 test("a web app's mark is the part of its window class that names it", () => {
@@ -110,4 +110,17 @@ test("pinning adds an app at the end; one already pinned stays where it is", () 
 test("unpinning takes the app out, and nothing else", () => {
   assert.deepEqual(Apps.pin(["a", "b"], "a", false), ["b"])
   assert.deepEqual(Apps.pin(["a"], "z", false), ["a"])
+})
+
+test("a window is minimized while it's on the minimized special workspace", () => {
+  assert.equal(Apps.minimizedWorkspace, "special:minimized")
+  assert.equal(Apps.isMinimized("special:minimized"), true)
+  assert.equal(Apps.isMinimized("special:scratchpad"), false)
+  assert.equal(Apps.isMinimized("1"), false)
+})
+
+test("a click on an app's one window brings it back, minimizes it or goes to it", () => {
+  assert.equal(Apps.clickOn({ minimized: true, focused: false }), "restore")
+  assert.equal(Apps.clickOn({ minimized: false, focused: true }), "minimize")
+  assert.equal(Apps.clickOn({ minimized: false, focused: false }), "focus")
 })

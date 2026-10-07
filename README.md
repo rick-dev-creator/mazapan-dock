@@ -9,11 +9,12 @@ hairline, then every other app with a window open, in the order they showed
 up. It takes its colors, corners and motion from the theme, its icons too.
 
 - **Icons in the theme's colors**, each in one hue as the bar's glyphs
-  are, still told apart by their shape: dim while the app has no window,
-  brighter while it has, the accent while it has the focus. The `icons`
-  setting gives them back their own colors.
+  are, still told apart by their shape: dim while the app has no window in
+  sight (none, or all of them minimized), brighter while it has, the accent
+  while it has the focus. The `icons` setting gives them back their own
+  colors.
 - **A mark for each window** under an app's icon, up to three; the accent
-  while one of them has the focus.
+  while one of them has the focus, hollow while it's minimized.
 - **The window found, wherever it is.** A click on an app with one window
   goes to it: its workspace, and on the strip of columns, its column, even
   when it was off the screen.
@@ -21,9 +22,16 @@ up. It takes its colors, corners and motion from the theme, its icons too.
   them side by side above its icon, each with its title: a click goes to
   one, a middle click closes it. The mouse wheel over the icon goes through
   them one after the other.
+- **Minimize**: a click on an app whose one window has the focus
+  minimizes it, and another brings it back, to the workspace you're on.
+  Hyprland has no minimize of its own, so a minimized window waits on a
+  special workspace that isn't shown (`special:minimized`, the one other
+  docks for Hyprland use too). Its mark goes hollow, the icon dims, and
+  its preview shows it dimmed; picking it, or reaching it with the wheel,
+  brings it back.
 - **Its menu** (a right click): the app's own actions (a private window, a
-  new document), a new window, keep it in the dock or take it out, close
-  its windows.
+  new document), a new window, minimize its windows or bring them back,
+  keep it in the dock or take it out, close its windows.
 - **Out of the way**, as you choose: always there with windows leaving it
   room; only while a window would sit under it (the default); or until the
   pointer reaches the bottom edge. Away, the bottom edge brings it back.

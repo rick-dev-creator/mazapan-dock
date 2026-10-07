@@ -1,7 +1,7 @@
 [plugin]
 id = "dock"
 name = "Dock"
-version = "0.2.0"
+version = "0.3.0"
 api = 1
 description = "Your apps at the bottom of the screen: the ones you keep there and the ones open, a mark for each window, the window found wherever it is on the strip, and every window of an app live to pick one"
 requires = ["shell-bar", "hypr-base", "palette"]

@@ -86,6 +86,7 @@ Singleton {
     app: appOf(t),
     address: address(t),
     focused: t.activated,
+    minimized: !!t.workspace && Apps.isMinimized(t.workspace.name),
     monitor: t.monitor ? t.monitor.name : "",
   }))
 
@@ -201,6 +202,26 @@ Singleton {
     if (keepPointerAt)
       Hyprland.dispatch(`hl.dsp.cursor.move({ x = ${Math.round(keepPointerAt.x)}, y = ${Math.round(keepPointerAt.y)} })`)
   }
+  // Minimized, a window goes to a special workspace that isn't shown, and
+  // Hyprland gives the focus to another. Brought back, it comes to the
+  // workspace you're on, as other docks for Hyprland do, with the focus.
+  // It leaves the special workspace before it's focused, so that one is
+  // never shown.
+  function minimize(window) {
+    Hyprland.dispatch(`hl.dsp.window.move({ window = "address:${window.address}", workspace = "${Apps.minimizedWorkspace}", follow = false })`)
+  }
+  function restore(window, keepPointerAt) {
+    const here = Hyprland.focusedMonitor && Hyprland.focusedMonitor.activeWorkspace
+    const to = here && here.id > 0 ? here.id : 1
+    Hyprland.dispatch(`hl.dsp.window.move({ window = "address:${window.address}", workspace = ${to}, follow = false })`)
+    focus(window, keepPointerAt)
+  }
+  // Goes to a window, bringing it back first when it's minimized.
+  function show(window, keepPointerAt) {
+    if (window.minimized) restore(window, keepPointerAt)
+    else focus(window, keepPointerAt)
+  }
+
   function close(window) {
     Hyprland.dispatch(`hl.dsp.window.close({ window = "address:${window.address}" })`)
   }
