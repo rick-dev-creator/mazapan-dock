@@ -77,7 +77,7 @@ Updates panel, asking again only for anything new it would be able to do.
 git clone https://github.com/rick-dev-creator/mazapan-dock
 mazapan plugins dev mazapan-dock     # applied again on every save
 mazapan plugins check mazapan-dock   # every theme, every language, before a release
-node --test mazapan-dock/tests/      # what the dock decides (Apps.js.tmpl)
+node --test mazapan-dock/tests/*.test.mjs   # what the dock decides (Apps.js.tmpl)
 ```
 
 What the dock decides (which app a window belongs to, the order, which

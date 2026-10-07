@@ -1,4 +1,4 @@
-// The dock's decisions (Apps.js.tmpl), run under node: node --test tests/
+// The dock's decisions (Apps.js.tmpl), run under node: node --test tests/*.test.mjs
 //
 // Apps.js is a QML JavaScript library: its first line, `.pragma library`,
 // isn't JavaScript, so it's taken out and the rest is loaded as a module.
