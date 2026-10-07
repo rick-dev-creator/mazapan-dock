@@ -1,0 +1,22 @@
+# mazapan plugins check on every push, pull request and version tag (every
+# theme, every language, what the plugin registry asks), and the tests of
+# what the dock decides.
+name: Check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    uses: rick-dev-creator/mazapan-plugins/.github/workflows/check-plugin.yml@main
+
+  logic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/

@@ -1,0 +1,90 @@
+[plugin]
+id = "dock"
+name = "Dock"
+version = "0.1.0"
+api = 1
+description = "Your apps at the bottom of the screen: the ones you keep there and the ones open, a mark for each window, the window found wherever it is on the strip, and every window of an app live to pick one"
+requires = ["shell-bar", "hypr-base", "palette"]
+categories = ["panel", "window"]
+author = "rickdev"
+homepage = "https://github.com/rick-dev-creator/mazapan-dock"
+license = "MIT"
+
+# How it looks, for the plugin gallery (mazapan.dev/plugins).
+[gallery]
+icon = "media/icon.svg"
+screenshots = ["media/dock.webp"]
+
+[settings]
+# Shows or hides the dock.
+key = "SUPER + D"
+# always: always there, and windows leave it room. smart: out of the way
+# only while a window would sit under it. auto: out of the way until the
+# pointer reaches the bottom of the screen.
+visibility = { default = "smart", choices = ["always", "smart", "auto"] }
+# How big the icons are, in pixels.
+icon_size = { default = 44, min = 28, max = 72, step = 2 }
+# The apps kept in the dock, by their desktop id, in order. Right-click an
+# app in the dock to keep it or take it out.
+pinned = { default = [], kind = "list" }
+# Each screen's dock shows only the windows on that screen.
+this_screen_only = true
+# A button at the start that opens the palette, to open any app.
+launcher = true
+
+# The settings, read live by the dock: changing one (pinning an app) doesn't
+# reload the shell (no reload command), the dock follows the file.
+[[targets]]
+template = "settings.json.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/settings.json"
+
+[[targets]]
+template = "qmldir.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/qmldir"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "Apps.js.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/Apps.js"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "DockService.qml.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/DockService.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "DockButton.qml.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/DockButton.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "WindowPicker.qml.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/WindowPicker.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "AppMenu.qml.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/AppMenu.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "DockWindow.qml.tmpl"
+output = "~/.config/quickshell/mazapan/components/dock/DockWindow.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "Dock.qml.tmpl"
+output = "~/.config/quickshell/mazapan/panels/dock.qml"
+reload = "sh ~/.local/share/mazapan/bin/shell-reload"
+
+[[targets]]
+template = "dock.lua.tmpl"
+output = "~/.config/hypr/mazapan/dock.lua"
+reload = "hyprctl reload >/dev/null"
+
+[[actions]]
+name = "{{ t \"act.toggle\" }}"
+run = "qs ipc -c mazapan call mazapan panel dock"
+key = "{{ settings.key }}"
+keywords = "{{ t \"act.toggle.kw\" }}"
