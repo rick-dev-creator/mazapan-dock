@@ -20,3 +20,5 @@
 "setting.this_screen_only.help" = "Each screen's dock shows only the windows on that screen."
 "setting.launcher" = "Palette button"
 "setting.launcher.help" = "A button at the start that opens the palette, to open any app."
+"setting.icons" = "Icons"
+"setting.icons.help" = "theme: every icon in the theme's colors, its hue saying how the app is (dim with no window, the text's color with one, the accent with the focus). app: the icons in the app's own colors."

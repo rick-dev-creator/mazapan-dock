@@ -1,7 +1,7 @@
 [plugin]
 id = "dock"
 name = "Dock"
-version = "0.1.0"
+version = "0.2.0"
 api = 1
 description = "Your apps at the bottom of the screen: the ones you keep there and the ones open, a mark for each window, the window found wherever it is on the strip, and every window of an app live to pick one"
 requires = ["shell-bar", "hypr-base", "palette"]
@@ -31,6 +31,10 @@ pinned = { default = [], kind = "list" }
 this_screen_only = true
 # A button at the start that opens the palette, to open any app.
 launcher = true
+# theme: every icon in the theme's colors, its hue saying how the app is
+# (dim with no window, the text's color with one, the accent with the
+# focus). app: the icons in the app's own colors.
+icons = { default = "theme", choices = ["theme", "app"] }
 
 # The settings, read live by the dock: changing one (pinning an app) doesn't
 # reload the shell (no reload command), the dock follows the file.

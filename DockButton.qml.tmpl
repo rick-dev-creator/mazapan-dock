@@ -8,6 +8,7 @@
 //   wheel         its windows one after the other
 
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import qs
@@ -49,6 +50,18 @@ Item {
     color: area.containsMouse || button.busy ? Theme.surface : "transparent"
   }
 
+  // In the theme's colors (the icons setting): each icon in one hue, as
+  // the bar's glyphs are, its light and dark kept so it's still told apart.
+  // The hue says how the app is: dim while it has no window, brighter while
+  // it has, the accent while it has the focus. A tint is the brightest an
+  // icon gets, so in a light theme, whose text is near black, the tints
+  // are its mid tones: with the text's color an icon would be a dark blot.
+  readonly property bool themed: DockService.settings.icons === "theme"
+  readonly property bool light: Theme.mode === "light"
+  readonly property color tint: item.focused ? (light ? Theme.accent : Theme.accentText)
+    : item.windows.length > 0 ? (light ? Theme.fgSubtle : Theme.fg)
+    : (light ? Qt.lighter(Theme.fgSubtle, 1.3) : Theme.fgMuted)
+
   IconImage {
     id: image
     visible: button.icon !== ""
@@ -57,6 +70,16 @@ Item {
     implicitSize: button.size
     source: button.icon
     asynchronous: true
+
+    layer.enabled: button.themed
+    layer.effect: MultiEffect {
+      colorization: 1
+      colorizationColor: button.tint
+      Behavior on colorizationColor {
+        enabled: Theme.motion
+        ColorAnimation { duration: Theme.duration }
+      }
+    }
   }
 
   // No icon: its first letter, so it's still told apart.

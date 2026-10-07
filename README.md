@@ -6,8 +6,12 @@ A plugin for [Mazapan](https://mazapan.dev), listed in its [plugin registry](htt
 
 Your apps at the bottom of the screen: the ones you keep there, then a
 hairline, then every other app with a window open, in the order they showed
-up. It takes its colors, corners and motion from the theme.
+up. It takes its colors, corners and motion from the theme, its icons too.
 
+- **Icons in the theme's colors**, each in one hue as the bar's glyphs
+  are, still told apart by their shape: dim while the app has no window,
+  brighter while it has, the accent while it has the focus. The `icons`
+  setting gives them back their own colors.
 - **A mark for each window** under an app's icon, up to three; the accent
   while one of them has the focus.
 - **The window found, wherever it is.** A click on an app with one window

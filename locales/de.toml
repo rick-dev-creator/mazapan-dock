@@ -20,3 +20,5 @@
 "setting.this_screen_only.help" = "Das Dock jedes Bildschirms zeigt nur die Fenster auf diesem Bildschirm."
 "setting.launcher" = "Paletten-Knopf"
 "setting.launcher.help" = "Ein Knopf am Anfang, der die Palette öffnet, um jede App zu öffnen."
+"setting.icons" = "Symbole"
+"setting.icons.help" = "theme: jedes Symbol in den Farben des Themas, sein Farbton sagt, wie es der App geht (gedämpft ohne Fenster, die Textfarbe mit einem, der Akzent mit dem Fokus). app: die Symbole in den eigenen Farben der App."
